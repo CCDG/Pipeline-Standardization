@@ -194,28 +194,48 @@ Resources available:
 
 Proposed functional equivalence metrics:
 1. CRAM: identical counts for different alignment classes (e.g., run samtools flagstat).
+
 2. CRAM: correlation between individual base quality scores at read level. This aims to test consistency of BQSR.
+
 3. CRAM: correlation between summed base quality scores at each reference genome coordinate. This aims to test differences arising from duplicate marking tools that retain a different set of non-duplicate reads, with potentially different base qualities and clipping information.
+
 4. CRAM: similarity between the overall distributions of base qualities
+
 5. VCF: variant genotype concordance (separate out common/1000 genomes vs ‘rare’)
+
 6. VCF: variant quality score correlation
+
 7. VCF: genotype quality correlation
+
 8. VCF: for NA12878, sensitivity to gold standard variants (GiaB version 3.2, lifted over to b38)
+
 9. VCF: for NA12878, FDR in GiaB high confidence regions
+
 10. VCF: for NA12878, genotype concordance with gold standard variants
+
 11. VCF: for NA12878-NA12891-NA12892 trio, # of Mendelian errors (may want to use jointly genotyped variants for this)
+
 12. SV: lumpy equivalence metrics TBD (possibly Mendelian errors, genotype concordance, comparison to NA12878 validation set that needs to be lifted over)
 
 Proposed procedure:
 1. Each center generates CRAM files for each of the 148 data sets (10 original plus 4 downsampled) and shares with the group. The CRAM tab in the manifest will be updated upon sharing.
+
 2. Generate 2 pairwise CRAM metrics (#3,4) for NA12878 run on the SAME pipeline but from different input sets that have been downsampled to ~24X.  This can be done 4 times: twice with 2 replicates from the same center, and twice with replicates from two different centers.
+
 3. Generate 2 pairwise CRAM metrics (#3,4) for NA19238 run on the SAME pipeline but from different input sets that have been downsampled to ~30X
+
 4. Generate pairwise CRAM metrics for the SAME input set run on different pipelines (10 input sets by 4 metrics). Downsampled data is not included in this comparison, only the original data for all samples and replicates.
+
 5. Use the results from steps 2 and 3 to determine acceptable ranges for metrics from step 4.  The details of this are still TBD.
+
 6. Each interested center calls variants using software of choice (GATK, vt, lumpy)
+
 7. Generate 6 pairwise VCF metrics (#5,6,7,8,9,10) for NA12878 run on the SAME pipeline and SAME variant caller but from different input sets. This is done only with replicates at the same coverage (~24X).
+
 8. Generate 3 pairwise VCF metrics (#5,6,7) for NA19238 run on the SAME pipeline and SAME variant caller but from different input sets. This is done only with replicates at the same coverage (~24X).
+
 9. Generate pairwise VCF metrics for the SAME input set run on different pipelines with the SAME variant caller (10 input sets by #5,6,7 metrics by 2? variant callers). This is done for non-downsampled, original data only.
+
 10. Use results from steps 7 and 8 to determine acceptable ranges for metrics from step 9.
 
 Notes:
