@@ -128,7 +128,7 @@ Notes:
 Summary: We agreed that additional base quality score compression was required to reduce file size, and that it should be possible to achieve this with minimal adverse impacts on variant calling.
 
 Standard:
-* 4-bin quality score compression. The 4-bin scheme is 2-6, 10, 20, 30, 40. The 2-6 scores correspond to Illumina error codes and will be left as-is by recalibration.
+* 4-bin quality score compression. The 4-bin scheme is 2-6, 10, 20, 30. The 2-6 scores correspond to Illumina error codes and will be left as-is by recalibration.
 * Bin base quality scores by rounding off to the nearest bin value, in probability space. This feature is already implemented in the current version of GATK.
 
 Command line:
