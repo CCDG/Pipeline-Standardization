@@ -193,6 +193,7 @@ Resources available:
 * A software tool to measure functional equivalence based on two VCF files.
 
 Proposed functional equivalence metrics:
+
 1. CRAM: identical counts for different alignment classes (e.g., run samtools flagstat).
 
 2. CRAM: correlation between individual base quality scores at read level. This aims to test consistency of BQSR.
@@ -218,6 +219,7 @@ Proposed functional equivalence metrics:
 12. SV: lumpy equivalence metrics TBD (possibly Mendelian errors, genotype concordance, comparison to NA12878 validation set that needs to be lifted over)
 
 Proposed procedure:
+
 1. Each center generates CRAM files for each of the 148 data sets (10 original plus 4 downsampled) and shares with the group. The CRAM tab in the manifest will be updated upon sharing.
 
 2. Generate 2 pairwise CRAM metrics (#3,4) for NA12878 run on the SAME pipeline but from different input sets that have been downsampled to ~24X.  This can be done 4 times: twice with 2 replicates from the same center, and twice with replicates from two different centers.
