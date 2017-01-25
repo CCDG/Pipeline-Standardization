@@ -21,11 +21,11 @@ Standard:
     * Use `-Y` to force soft-clipping rather than default hard-clipping of supplementary alignments
     * Include a `.alt` file for consumption by BWA-MEM; do not perform post-processing of alternate alignments
 * Optional parameters (may be useful for convenience and not expected to alter results):
-    * -p (for interleaved fastq)
-    * -C (append FASTA/FASTQ comment to SAM output)
-    * -v (logging verbosity)
-    * -t (threading)
-    * -R (read group header line)
+    * `-p` (for interleaved fastq)
+    * `-C` (append FASTA/FASTQ comment to SAM output)
+    * `-v` (logging verbosity)
+    * `-t` (threading)
+    * `-R` (read group header line)
 * Post-alignment modification:
     * In order to reduce false positive calls due to bacterial contamination randomly aligning to the human genome, the Broad Institute has started marking (setting 0x4 bit in the SAM flag) reads (and their mates) if the following conditions apply:
         1. The primary alignment has less than 32 aligned bases
@@ -37,7 +37,7 @@ Standard:
 Notes:
 * Our current understanding is that `-K 100000000` produces completely deterministic alignment results, regardless of the number of threads used, assuming that identical fastq and reference genome files are used. This should be verified.
 * We verified that reference genome index files are not a source of stochastic alignment results (via md5 checksum of index files produced at different centers)
-* -Y was suggested by the Michigan group to help ensure compatibility with SRA.
+* `-Y` was suggested by the Michigan group to help ensure compatibility with SRA.
 * Broad can provide some examples of problematic regions (not whole samples) where bacterial contamination is problematic
 
 ##Duplicate marking
@@ -177,7 +177,7 @@ Notes:
 * The use of htsjdk/picard for converting bam to cram is not currently condoned. We are working on making picard output equivalent to samtools, but are not there yet. Broad currently converts using samtools.
 * Should retention of original query names be mandatory, or optional? Query names will not be retained in current cSRA format.
 * dbGaP and cSRA currently accept CRAM files
-*  it is recommended that users use samtools version 1.3.1 to convert from bam/sam to Cram (not picard). Users that would like to convert back from cram to bam (and want to avoid ending up with a working, but invalid bam) need to either convert to sam and then to bam (piping works) or compile samtools with HTSLib version 1.3.2. To enable this you need to: configure the build of samtools with the parameter --with-htslib=/path/to/htslib-1.3.2.
+*  it is recommended that users use samtools version 1.3.1 to convert from bam/sam to Cram (not picard). Users that would like to convert back from cram to bam (and want to avoid ending up with a working, but invalid bam) need to either convert to sam and then to bam (piping works) or compile samtools with HTSLib version 1.3.2. To enable this you need to: configure the build of samtools with the parameter `--with-htslib=/path/to/htslib-1.3.2`.
 
 #Functional equivalence evaluation
 Summary:  We agreed that all pipelines used for this effort need to be validated as functionally equivalent.
