@@ -31,7 +31,7 @@ Standard:
         1. The primary alignment has less than 32 aligned bases
         2. The primary alignment is (soft) clipped on both sides
     * This filtering is optional
-    * The original mapping information will be encoded in a tag on the marked reads using the same format as the SA tag in the BAM specification.
+    * The original mapping information will be encoded in a Previous Alignment (PA) tag on the marked reads using the same format as the SA tag in the BAM specification.
     * Modification of other flags after alignment will not be performed.
 
 Notes:
