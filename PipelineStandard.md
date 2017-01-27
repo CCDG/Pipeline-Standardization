@@ -53,7 +53,7 @@ Notes:
 Summary: We agreed that this computationally expensive data processing step is dispensable given the state of current Indel detection algorithms, and should be removed.
 
 ##Base quality score recalibration
-Summary: Currently, this step is performed by all centers except WashU, using two different tools: GATK (Broad, NYGC & Baylor) and BamUtil (Michigan). There was discussion about dropping BQSR given evidence from WashU and Michigan that the impact on variant calling performance is minimal. However, given that this project will involve combined analysis of data from multiple centers and numerous sequencers, generated over multiple years, and that we cannot ensure the consistency of Illumina base-calling software over time, we decided that it is preferable to perform BQSR.
+Summary: There was discussion about dropping BQSR given evidence that the impact on variant calling performance is minimal. However, given that this project will involve combined analysis of data from multiple centers and numerous sequencers, generated over multiple years, and that we cannot ensure the consistency of Illumina base-calling software over time, we decided that it is preferable to perform BQSR.  We evaluated two tools, GATK BaseRecalibrator (both version 3 and 4) and bamUtil.
 
 Standard:
 * We will use the following files from the [GATK hg38 bundle](https://console.cloud.google.com/storage/browser/genomics-public-data/resources/broad/hg38/v0/) for the site list:
@@ -62,6 +62,7 @@ Standard:
     * Homo_sapiens_assembly38.known_indels.vcf.gz
 * The recalibration table may optionally be generated using only the autosomes (chr1-chr22)
 * Downsampling of the reads is allowed (but optional) to generate the recalibration table
+* per-base alignment qualities (BAQ) algorithm is optional as long as functional equivalence is met.
 
 Command line:
 For users of GATK, the following command line options should be utilized for the BaseRecalibrator tool:
@@ -109,11 +110,6 @@ For users of GATK, the following command line options are optional:
 * `--disable_bam_indexing`
 * `-nct`
 * `--useOriginalQualities`
-
-Notes:
-* NYGC and WashU have expressed concern about using two different BQSR tools given our decision to compress base quality scores and not retain the original values (see below). Under this scenario, BQSR becomes an important and irreversible data processing step.
-* We either need to use a single tool, or we need to be absolutely sure that the different tools are performing BQSR in identical or nearly identical ways.
-* Since BQSR includes BAQ, which is very compute intensive, broad is evaluating whether this can be removed while retaining the quality of the calls.
 
 ##Base quality score binning scheme
 Summary: We agreed that additional base quality score compression was required to reduce file size, and that it should be possible to achieve this with minimal adverse impacts on variant calling.
