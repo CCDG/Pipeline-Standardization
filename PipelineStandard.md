@@ -1,7 +1,7 @@
 #Alignment pipeline standards
 
 ##Reference genome version
-Summary: We agreed that each center should use exactly the same reference genome.
+Summary: Each center should use exactly the same reference genome.
 
 Standard:
 * GRCh38DH, [1000 Genomes Project version](http://ftp.1000genomes.ebi.ac.uk/vol1/ftp/technical/reference/GRCh38_reference_genome/)
@@ -10,7 +10,7 @@ Standard:
 * Includes additional alternate versions of the HLA locus
 
 ##Alignment
-Summary: We agreed that each center should use exactly the same alignment strategy
+Summary: Each center should use exactly the same alignment strategy
 
 Standard:
 * Aligner: BWA-MEM
@@ -35,7 +35,7 @@ Standard:
     * Modification of other flags after alignment will not be performed.
 
 ##Duplicate marking
-Summary: This processing step is a source of considerable variability among centers, with four different tools being used at the beginning of this exercise: Picard, bamUtil, Samblaster, and Sambamba. These tools differ in their behavior at supplementary alignments, at “orphan” alignments where one of the two reads is unmapped, and based on whether they select the “best” read-pair in a set of duplicates (Picard & BamUtil), or the first read-pair (Samblaster). We agreed that it was acceptable for different centers to use different tools, so long as the same number of reads were marked duplicate and results were functionally equivalent.
+Summary: This processing step is a source of considerable variability among centers, with four different tools being used at the beginning of this exercise: Picard, bamUtil, Samblaster, and Sambamba. These tools differ in their behavior at supplementary alignments, at “orphan” alignments where one of the two reads is unmapped, and based on whether they select the “best” read-pair in a set of duplicates (Picard & BamUtil), or the first read-pair (Samblaster). Different centers can use different tools, as long as the same number of reads were marked duplicate and results were functionally equivalent.
 
 Standard:
 * Match Picard’s current definition of duplicates for primary alignments where both reads of a pair align to the reference genome. Both Samblaster and bamUtil already attempt to match Picard for this class of alignments.
@@ -45,12 +45,12 @@ Standard:
 * It is not a requirement for duplicate marking software to choose the best pair based on base quality sum, but results must be functionally equivalent.  In practice we have moved away from using Samblaster for this reason.
 
 Notes:
-* We agreed that if a primary alignment is marked as duplicate, then all secondary alignments for that read should also be marked as duplicates. However, given that no secondary alignments will exist using our proposed alignment strategy, we decided that it should be optional for different groups to incorporate this behavior into their software.
+* If a primary alignment is marked as duplicate, then all secondary alignments for that read should also be marked as duplicates. However, given that no secondary alignments will exist using our proposed alignment strategy, it is optional for software to implement.
 * There was a discussion about whether duplicate marking should be deterministic. We did not reach a decision on this.
 * We have discussed the preferred behavior for marking duplicates in datasets with multiple sequencing libraries and have decided that this is a minor concern given that very few samples should have multiple libraries. Currently MarkDuplicates supports multiple libraries with the caveat that the term “Library” isn’t exactly defined (consider a technical replicate that starts somewhere in the middle of the LC process, how early must it be to be called a different library?)
 
 ##Indel realignment
-Summary: We agreed that this computationally expensive data processing step is dispensable given the state of current Indel detection algorithms, and should be removed.
+Summary: This computationally expensive data processing step is dispensable given the state of current indel detection algorithms and will not be performed.
 
 ##Base quality score recalibration
 Summary: There was discussion about dropping BQSR given evidence that the impact on variant calling performance is minimal. However, given that this project will involve combined analysis of data from multiple centers and numerous sequencers, generated over multiple years, and that we cannot ensure the consistency of Illumina base-calling software over time, we decided that it is preferable to perform BQSR.  We evaluated two tools, GATK BaseRecalibrator (both version 3 and 4) and bamUtil.
@@ -62,7 +62,7 @@ Standard:
     * Homo_sapiens_assembly38.known_indels.vcf.gz
 * The recalibration table may optionally be generated using only the autosomes (chr1-chr22)
 * Downsampling of the reads is allowed (but optional) to generate the recalibration table
-* per-base alignment qualities (BAQ) algorithm is optional as long as functional equivalence is met.
+* per-base alignment qualities (BAQ) algorithm is optional as long as functional equivalence is met
 
 Command line:
 For users of GATK, the following command line options should be utilized for the BaseRecalibrator tool:
@@ -112,7 +112,7 @@ For users of GATK, the following command line options are optional:
 * `--useOriginalQualities`
 
 ##Base quality score binning scheme
-Summary: We agreed that additional base quality score compression was required to reduce file size, and that it should be possible to achieve this with minimal adverse impacts on variant calling.
+Summary: Additional base quality score compression is required to reduce file size.  It is possible to achieve this with minimal adverse impacts on variant calling.
 
 Standard:
 * 4-bin quality score compression. The 4-bin scheme is 2-6, 10, 20, 30. The 2-6 scores correspond to Illumina error codes and will be left as-is by recalibration.
@@ -140,7 +140,7 @@ For users of GATK, the following command line options are optional:
 * `--addOutputSAMProgramRecord`
 
 ##File format
-Summary: We agreed that each center should use the same file format, while retaining flexibility to include additional information for specific centers or projects.
+Summary: Each center should use the same file format, while retaining flexibility to include additional information for specific centers or projects.
 
 Standard:
 * Lossless CRAM. Upon conversion to BAM, the BAM file should be valid according to Picard’s ValidateSamFile.
@@ -152,13 +152,13 @@ Standard:
 * Do not retain the original base quality scores (OQ tag).
 
 Notes:
-*  it is recommended that users use samtools version >=1.3.1 to convert from bam/sam to Cram (not picard). Users that would like to convert back from cram to bam (and want to avoid ending up with a working, but invalid bam) need to either convert to sam and then to bam (piping works) or compile samtools with HTSLib version >=1.3.2. To enable this you need to: configure the build of samtools with the parameter `--with-htslib=/path/to/htslib-1.3.2`.
+*  it is recommended that users use samtools version >=1.3.1 to convert from bam/sam to cram (not picard). Users that would like to convert back from cram to bam (and want to avoid ending up with a working, but invalid bam) need to either convert to sam and then to bam (piping works) or compile samtools with HTSLib version >=1.3.2. To enable this you need to: configure the build of samtools with the parameter `--with-htslib=/path/to/htslib-1.3.2`.
 
 #Functional equivalence evaluation
-Summary:  We agreed that all pipelines used for this effort need to be validated as functionally equivalent.
+Summary:  All pipelines used for this effort need to be validated as functionally equivalent.
 
 #Pathway for updates to this standard
-Summary: We agreed that pipelines will need to be updated during the project, but that this should be a tightly controlled process given the need to reprocess vast amounts of data each time substantial pipeline modifications occur.
+Summary: Pipelines will need to be updated during the project, but this should be a tightly controlled process given the need to reprocess vast amounts of data each time substantial pipeline modifications occur.
 
 Draft plan:
 * Initial pipeline versions should serve for project years 1-2.
