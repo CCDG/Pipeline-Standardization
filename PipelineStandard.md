@@ -39,10 +39,10 @@ Summary: This processing step is a source of considerable variability among cent
 
 Standard:
 * Match Picard’s current definition of duplicates for primary alignments where both reads of a pair align to the reference genome. Both Samblaster and bamUtil already attempt to match Picard for this class of alignments.
-* If a primary alignment is marked as duplicate, then all supplementary alignments for that same read should also be marked as duplicates. Both Picard and bamUtil have modified to exhibit this behavior.  For Picard, you must use >= version 2.4.1 and run on a queryname sorted input file.  BamUtil must be version >=TODO
+* If a primary alignment is marked as duplicate, then all supplementary alignments for that same read should also be marked as duplicates. Both Picard and bamUtil have modified to exhibit this behavior.  For Picard, you must use >= version 2.4.1 and run on a queryname sorted input file.  BamUtil must be version >=TODO.  Samblaster supports this behavior, but Sambamba does not.
 * Orphans will be marked as duplicates if there’s another read with the same alignment (mated, or orphaned)
 * The unmapped mate of duplicate orphan reads is required to also be marked as a duplicate.
-* It is not a requirement for duplicate marking software to choose the best pair based on base quality sum, but results must be functionally equivalent.
+* It is not a requirement for duplicate marking software to choose the best pair based on base quality sum, but results must be functionally equivalent.  In practice we have moved away from using Samblaster for this reason.
 
 Notes:
 * We agreed that if a primary alignment is marked as duplicate, then all secondary alignments for that read should also be marked as duplicates. However, given that no secondary alignments will exist using our proposed alignment strategy, we decided that it should be optional for different groups to incorporate this behavior into their software.
