@@ -139,14 +139,6 @@ For users of GATK, the following command line options are optional:
 * `--createOutputBamMD5`
 * `--addOutputSAMProgramRecord`
 
-Notes:
-* The average file size for a 30X CRAM file compressed using Samtools is 13.7 Gb using 3 bins and 16.8 Gb using 4 bins. These sizes are based on 50 WGS datasets from WashU, downsampled to exactly 30X coverage. All but two datasets are from the HiSeqX. Original quality scores were not retained.
-* After some discussion of alternate binning schemes, the GATK scheme using 2-6, 10, 20, 30 was decided on 6/1.
-* After additional discussion the 40 bin was added on 10/10 and subsequently removed on 11/14
-* What to do with bases recalibrated to have qualities between 2-6 is still under discussion.
-* Broad and Michigan have expressed a preference for 4 bins due to the greater information content and minor difference in file size.
-* Variant calling performance was compared using 3 or 4 bins and 30X and 20X data.
-
 ##File format
 Summary: We agreed that each center should use the same file format, while retaining flexibility to include additional information for specific centers or projects.
 
