@@ -157,68 +157,6 @@ Notes:
 #Functional equivalence evaluation
 Summary:  We agreed that all pipelines used for this effort need to be validated as functionally equivalent.
 
-Resources available:
-* NA12878 (WashU - 2 replicates)
-* NA12878 - 2 replicates from same DNA, NA12891, NA12892 (Broad)
-* NA19238 x 2 (2 different centers, but particulars unable to be shared)
-* Luyha sample + 1 more non-European (NYGC)
-* NA12878 replicates downsampled to ~24X (the two Broad replicates and 1 of the WashU replicates).
-* NA19238 downsampled to ~30X to match the coverage of the other NA19238 sample.
-* A software tool to measure functional equivalence based on two CRAM files.
-* A software tool to measure functional equivalence based on two VCF files.
-
-Proposed functional equivalence metrics:
-
-1. CRAM: identical counts for different alignment classes (e.g., run samtools flagstat).
-
-2. CRAM: correlation between individual base quality scores at read level. This aims to test consistency of BQSR.
-
-3. CRAM: correlation between summed base quality scores at each reference genome coordinate. This aims to test differences arising from duplicate marking tools that retain a different set of non-duplicate reads, with potentially different base qualities and clipping information.
-
-4. CRAM: similarity between the overall distributions of base qualities
-
-5. VCF: variant genotype concordance (separate out common/1000 genomes vs ‘rare’)
-
-6. VCF: variant quality score correlation
-
-7. VCF: genotype quality correlation
-
-8. VCF: for NA12878, sensitivity to gold standard variants (GiaB version 3.2, lifted over to b38)
-
-9. VCF: for NA12878, FDR in GiaB high confidence regions
-
-10. VCF: for NA12878, genotype concordance with gold standard variants
-
-11. VCF: for NA12878-NA12891-NA12892 trio, # of Mendelian errors (may want to use jointly genotyped variants for this)
-
-12. SV: lumpy equivalence metrics TBD (possibly Mendelian errors, genotype concordance, comparison to NA12878 validation set that needs to be lifted over)
-
-Proposed procedure:
-
-1. Each center generates CRAM files for each of the 148 data sets (10 original plus 4 downsampled) and shares with the group. The CRAM tab in the manifest will be updated upon sharing.
-
-2. Generate 2 pairwise CRAM metrics (#3,4) for NA12878 run on the SAME pipeline but from different input sets that have been downsampled to ~24X.  This can be done 4 times: twice with 2 replicates from the same center, and twice with replicates from two different centers.
-
-3. Generate 2 pairwise CRAM metrics (#3,4) for NA19238 run on the SAME pipeline but from different input sets that have been downsampled to ~30X
-
-4. Generate pairwise CRAM metrics for the SAME input set run on different pipelines (10 input sets by 4 metrics). Downsampled data is not included in this comparison, only the original data for all samples and replicates.
-
-5. Use the results from steps 2 and 3 to determine acceptable ranges for metrics from step 4.  The details of this are still TBD.
-
-6. Each interested center calls variants using software of choice (GATK, vt, lumpy)
-
-7. Generate 6 pairwise VCF metrics (#5,6,7,8,9,10) for NA12878 run on the SAME pipeline and SAME variant caller but from different input sets. This is done only with replicates at the same coverage (~24X).
-
-8. Generate 3 pairwise VCF metrics (#5,6,7) for NA19238 run on the SAME pipeline and SAME variant caller but from different input sets. This is done only with replicates at the same coverage (~24X).
-
-9. Generate pairwise VCF metrics for the SAME input set run on different pipelines with the SAME variant caller (10 input sets by #5,6,7 metrics by 2? variant callers). This is done for non-downsampled, original data only.
-
-10. Use results from steps 7 and 8 to determine acceptable ranges for metrics from step 9.
-
-Notes:
-* In cases where two pipelines are not functionally equivalent, it will be necessary to determine which one is more “correct” according to our standards, and which one needs to be modified.  Comparison to GiaB should help with this, although in some cases it may be a case of different tradeoffs being made (e.g. sensitivity vs specificity)
-* There are several proposed ways to compare qualities, etc.  Just looking at the correlation coefficient may not be sufficient to detect biased differences.  We may also need to look at the distribution of differences (t-test, sign test, KS test)
-
 #Pathway for updates to this standard
 Summary: We agreed that pipelines will need to be updated during the project, but that this should be a tightly controlled process given the need to reprocess vast amounts of data each time substantial pipeline modifications occur.
 
@@ -228,24 +166,3 @@ Draft plan:
 * Propose to start a review process in late 2017: invite proposals for pipeline updates that incorporate new aligners, reference genomes and data processing steps.
 * If substantial improvements are achievable, implement new pipelines for project years 3-4.
 * There will need to be a decision about how large the potential variant calling improvements should be to warrant pipeline modification and data reprocessing.
-
-##Data resources to generate for mid-project pipeline improvement
-Summary: We agreed that additional data resources would be needed for development and testing of future pipelines. We have not spent much time on this topic yet.
-
-Draft plan:
-* 32 genomes
-* 2 hydatidiform moles (CHM1 and CHM13).
-* A “pseudodiploid” mixture of CHM1 and CHM13. Will this mixing happen at the level of data or DNA?
-* 10 trios with diverse ancestry from the 1000 Genomes Project, selected to maximize overlap with ongoing genome assembly projects.
-* CEPH: NA12878, NA12892, NA12891. Best characterized trio. PacBio assembly for NA12878 available from the WashU Reference Genomes Improvement project.
-* Yoruban: NA19240, NA19238, NA19239. PacBio assembly for NA19240 (WashU).
-* Puerto Rican trio: HG00733, HG00732, HG00731. PacBio assembly for HG00733 (WashU).
-* Han Chinese: HG00514, HG00513, HG00512. PacBio assembly for HG00514 (WashU).
-* Columbian: HG01352, HG01351, HG01350. PacBio assembly for HG01352 (WashU)
-* Gambian: HG02818, HG02816, HG02817. PacBio assembly for HG02818 (WashU)
-* Vietnamese: HG02059, HG02060, HG02061. PacBio assembly for HG02059 (WashU)
-* Ashkenazi trio. PacBio assembly for child (Genome in a Bottle Consortium).
-* Two more?
-* Use mendelian segregation as an unbiased measure in trios.
-* Use false heterozygous calls as an unbiased measure in haploid mole genomes.
-* Develop variant “truthsets” for fully assembled genomes. Leverage ongoing efforts such as Genome in a Bottle.
