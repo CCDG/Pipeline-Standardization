@@ -249,8 +249,3 @@ Draft plan:
 * Use mendelian segregation as an unbiased measure in trios.
 * Use false heterozygous calls as an unbiased measure in haploid mole genomes.
 * Develop variant “truthsets” for fully assembled genomes. Leverage ongoing efforts such as Genome in a Bottle.
-
-#Miscellaneous issues
-Notes:
-* There is the question about whether to trim adaptor sequences. Broad clips adaptor sequences. Michigan and WashU do not. Does not appear that NYGC and Baylor clip adaptor sequences either. WashU thinks that BWA-MEM is capable of doing adequate clipping during alignment.
-* Will our pipelines be designed to accommodate multiple sequencing libraries? Implications for duplicate marking.
