@@ -4,7 +4,7 @@
 Summary: We agreed that each center should use exactly the same reference genome.
 
 Standard:
-* GRCh38DH, 1000 Genomes Project version
+* GRCh38DH, [1000 Genomes Project version](http://ftp.1000genomes.ebi.ac.uk/vol1/ftp/technical/reference/GRCh38_reference_genome/)
 * Includes the standard set of chromosomes and alternate sequences from GRCh38
 * Includes the decoy sequences
 * Includes additional alternate versions of the HLA locus
