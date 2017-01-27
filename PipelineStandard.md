@@ -34,12 +34,6 @@ Standard:
     * The original mapping information will be encoded in a Previous Alignment (PA) tag on the marked reads using the same format as the SA tag in the BAM specification.
     * Modification of other flags after alignment will not be performed.
 
-Notes:
-* Our current understanding is that `-K 100000000` produces completely deterministic alignment results, regardless of the number of threads used, assuming that identical fastq and reference genome files are used. This should be verified.
-* We verified that reference genome index files are not a source of stochastic alignment results (via md5 checksum of index files produced at different centers)
-* `-Y` was suggested by the Michigan group to help ensure compatibility with SRA.
-* Broad can provide some examples of problematic regions (not whole samples) where bacterial contamination is problematic
-
 ##Duplicate marking
 Summary: This processing step is a source of considerable variability among centers, with three different tools being used at the beginning of this exercise: Picard (Broad, NYGC, Baylor, WashU), BamUtil (Michigan). These tools differ in their behavior at supplementary alignments, at “orphan” alignments where one of the two reads is unmapped, and based on whether they select the “best” read-pair in a set of duplicates (Picard & BamUtil), or the first read-pair (Samblaster). We agreed that it was acceptable for different centers to use different tools, so long as the same number of reads were marked duplicate and results were functionally equivalent.
 
