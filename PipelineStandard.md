@@ -46,7 +46,7 @@ Standard:
     * Modification of other flags after alignment will not be performed.
 
 ##Duplicate marking
-Different centers can use different tools, as long as the same number of reads are marked duplicate and results are functionally equivalent.  During the pipeline synchronization exercise we evaluated four tools: Picard MarkDuplicates, bamUtil, Samblaster, and Sambamba.  After the exercise groups are using Picard and bamUtil.
+Different centers can use different tools, as long as the same number of reads are marked duplicate and results are functionally equivalent.  During the pipeline synchronization exercise we evaluated four tools: Picard MarkDuplicates, bamUtil, Samblaster, and Sambamba.  After the exercise, centers are using Picard and bamUtil.
 
 Standard:
 * Match Picard’s current definition of duplicates for primary alignments where both reads of a pair align to the reference genome. Both Samblaster and bamUtil already attempt to match Picard for this class of alignments.
@@ -64,7 +64,7 @@ Notes:
 This computationally expensive data processing step is dispensable given the state of current indel detection algorithms and will not be performed.
 
 ##Base quality score recalibration
-There was discussion about dropping BQSR given evidence that the impact on variant calling performance is minimal. However, given that this project will involve combined analysis of data from multiple centers and numerous sequencers, generated over multiple years, and that we cannot ensure the consistency of Illumina base-calling software over time, we decided that it is preferable to perform BQSR.  We evaluated two tools, GATK BaseRecalibrator (both version 3 and 4) and bamUtil.
+There was discussion about dropping BQSR given evidence that the impact on variant calling performance is minimal. However, given that this project will involve combined analysis of data from multiple centers and numerous sequencers, generated over multiple years, and that we cannot ensure the consistency of Illumina base-calling software over time, we decided that it is preferable to perform BQSR.  We evaluated two tools, GATK BaseRecalibrator (both GATK3 and GATK4) and bamUtil.
 
 Standard:
 * We will use the following files from the [GATK hg38 bundle](https://console.cloud.google.com/storage/browser/genomics-public-data/resources/broad/hg38/v0/) for the site list:
