@@ -1,3 +1,14 @@
+* [Alignment pipeline standards](#alignment-pipeline-standards)
+   1. [Reference genome version](#reference-genome-version)
+   2. [Alignment](#alignment)
+   3. [Duplicate marking](#duplicate-marking)
+   4. [Indel realignment](#indel-realignment)
+   5. [Base quality score recalibration](#base-quality-score-recalibration)
+   6. [Base quality score binning scheme](#base-quality-score-binning-scheme)
+   7. [File format](#file-format)
+* [Functional equivalence evaluation](#functional-equivalence-evaluation)
+* [Pathway for updates to this standard](#pathway-for-updates-to-this-standard)
+
 #Alignment pipeline standards
 
 ##Reference genome version
