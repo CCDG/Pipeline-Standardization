@@ -12,7 +12,7 @@
 #Alignment pipeline standards
 
 ##Reference genome version
-Summary: Each center should use exactly the same reference genome.
+Each center should use exactly the same reference genome.
 
 Standard:
 * GRCh38DH, [1000 Genomes Project version](http://ftp.1000genomes.ebi.ac.uk/vol1/ftp/technical/reference/GRCh38_reference_genome/)
@@ -21,7 +21,7 @@ Standard:
 * Includes additional alternate versions of the HLA locus
 
 ##Alignment
-Summary: Each center should use exactly the same alignment strategy
+Each center should use exactly the same alignment strategy
 
 Standard:
 * Aligner: BWA-MEM
@@ -46,7 +46,7 @@ Standard:
     * Modification of other flags after alignment will not be performed.
 
 ##Duplicate marking
-Summary: This processing step is a source of considerable variability among centers, with four different tools being used at the beginning of this exercise: Picard, bamUtil, Samblaster, and Sambamba. These tools differ in their behavior at supplementary alignments, at “orphan” alignments where one of the two reads is unmapped, and based on whether they select the “best” read-pair in a set of duplicates (Picard & BamUtil), or the first read-pair (Samblaster). Different centers can use different tools, as long as the same number of reads were marked duplicate and results were functionally equivalent.
+This processing step is a source of considerable variability among centers, with four different tools being used at the beginning of this exercise: Picard, bamUtil, Samblaster, and Sambamba. These tools differ in their behavior at supplementary alignments, at “orphan” alignments where one of the two reads is unmapped, and based on whether they select the “best” read-pair in a set of duplicates (Picard & BamUtil), or the first read-pair (Samblaster). Different centers can use different tools, as long as the same number of reads were marked duplicate and results were functionally equivalent.
 
 Standard:
 * Match Picard’s current definition of duplicates for primary alignments where both reads of a pair align to the reference genome. Both Samblaster and bamUtil already attempt to match Picard for this class of alignments.
@@ -61,10 +61,10 @@ Notes:
 * We have discussed the preferred behavior for marking duplicates in datasets with multiple sequencing libraries and have decided that this is a minor concern given that very few samples should have multiple libraries. Currently MarkDuplicates supports multiple libraries with the caveat that the term “Library” isn’t exactly defined (consider a technical replicate that starts somewhere in the middle of the LC process, how early must it be to be called a different library?)
 
 ##Indel realignment
-Summary: This computationally expensive data processing step is dispensable given the state of current indel detection algorithms and will not be performed.
+This computationally expensive data processing step is dispensable given the state of current indel detection algorithms and will not be performed.
 
 ##Base quality score recalibration
-Summary: There was discussion about dropping BQSR given evidence that the impact on variant calling performance is minimal. However, given that this project will involve combined analysis of data from multiple centers and numerous sequencers, generated over multiple years, and that we cannot ensure the consistency of Illumina base-calling software over time, we decided that it is preferable to perform BQSR.  We evaluated two tools, GATK BaseRecalibrator (both version 3 and 4) and bamUtil.
+There was discussion about dropping BQSR given evidence that the impact on variant calling performance is minimal. However, given that this project will involve combined analysis of data from multiple centers and numerous sequencers, generated over multiple years, and that we cannot ensure the consistency of Illumina base-calling software over time, we decided that it is preferable to perform BQSR.  We evaluated two tools, GATK BaseRecalibrator (both version 3 and 4) and bamUtil.
 
 Standard:
 * We will use the following files from the [GATK hg38 bundle](https://console.cloud.google.com/storage/browser/genomics-public-data/resources/broad/hg38/v0/) for the site list:
@@ -76,6 +76,7 @@ Standard:
 * per-base alignment qualities (BAQ) algorithm is optional
 
 Command line:
+
 For users of GATK, the following command line options should be utilized for the BaseRecalibrator tool:
 ```
 -R ${ref_fasta} \
@@ -123,13 +124,14 @@ For users of GATK, the following command line options are optional:
 * `--useOriginalQualities`
 
 ##Base quality score binning scheme
-Summary: Additional base quality score compression is required to reduce file size.  It is possible to achieve this with minimal adverse impacts on variant calling.
+Additional base quality score compression is required to reduce file size.  It is possible to achieve this with minimal adverse impacts on variant calling.
 
 Standard:
 * 4-bin quality score compression. The 4-bin scheme is 2-6, 10, 20, 30. The 2-6 scores correspond to Illumina error codes and will be left as-is by recalibration.
 * Bin base quality scores by rounding off to the nearest bin value, in probability space. This feature is already implemented in the current version of GATK.
 
 Command line:
+
 For users of GATK, the following command line options should be utilized for the PrintReads (GATK3) or ApplyBQSR (GATK4) tool:
 ```
 -R ${ref_fasta} \
@@ -151,7 +153,7 @@ For users of GATK, the following command line options are optional:
 * `--addOutputSAMProgramRecord`
 
 ##File format
-Summary: Each center should use the same file format, while retaining flexibility to include additional information for specific centers or projects.
+Each center should use the same file format, while retaining flexibility to include additional information for specific centers or projects.
 
 Standard:
 * Lossless CRAM. Upon conversion to BAM, the BAM file should be valid according to Picard’s ValidateSamFile.
@@ -166,10 +168,10 @@ Notes:
 *  it is recommended that users use samtools version >=1.3.1 to convert from bam/sam to cram (not picard). Users that would like to convert back from cram to bam (and want to avoid ending up with a working, but invalid bam) need to either convert to sam and then to bam (piping works) or compile samtools with HTSLib version >=1.3.2. To enable this you need to: configure the build of samtools with the parameter `--with-htslib=/path/to/htslib-1.3.2`.
 
 #Functional equivalence evaluation
-Summary:  All pipelines used for this effort need to be validated as functionally equivalent.
+All pipelines used for this effort need to be validated as functionally equivalent.
 
 #Pathway for updates to this standard
-Summary: Pipelines will need to be updated during the project, but this should be a tightly controlled process given the need to reprocess vast amounts of data each time substantial pipeline modifications occur.
+Pipelines will need to be updated during the project, but this should be a tightly controlled process given the need to reprocess vast amounts of data each time substantial pipeline modifications occur.
 
 Draft plan:
 * Initial pipeline versions should serve for project years 1-2.
