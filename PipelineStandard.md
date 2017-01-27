@@ -35,7 +35,7 @@ Standard:
     * Modification of other flags after alignment will not be performed.
 
 ##Duplicate marking
-Summary: This processing step is a source of considerable variability among centers, with three different tools being used at the beginning of this exercise: Picard (Broad, NYGC, Baylor, WashU), BamUtil (Michigan). These tools differ in their behavior at supplementary alignments, at “orphan” alignments where one of the two reads is unmapped, and based on whether they select the “best” read-pair in a set of duplicates (Picard & BamUtil), or the first read-pair (Samblaster). We agreed that it was acceptable for different centers to use different tools, so long as the same number of reads were marked duplicate and results were functionally equivalent.
+Summary: This processing step is a source of considerable variability among centers, with four different tools being used at the beginning of this exercise: Picard (Broad, NYGC), BamUtil (Michigan), Samblaster (WashU), and Sambamba (Baylor). These tools differ in their behavior at supplementary alignments, at “orphan” alignments where one of the two reads is unmapped, and based on whether they select the “best” read-pair in a set of duplicates (Picard & BamUtil), or the first read-pair (Samblaster). We agreed that it was acceptable for different centers to use different tools, so long as the same number of reads were marked duplicate and results were functionally equivalent.
 
 Standard:
 * Match Picard’s current definition of duplicates for primary alignments where both reads of a pair align to the reference genome. Both Samblaster and BamUtil already attempt to match Picard for this class of alignments.
