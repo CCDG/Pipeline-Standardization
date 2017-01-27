@@ -35,19 +35,16 @@ Standard:
     * Modification of other flags after alignment will not be performed.
 
 ##Duplicate marking
-Summary: This processing step is a source of considerable variability among centers, with four different tools being used at the beginning of this exercise: Picard (Broad, NYGC), BamUtil (Michigan), Samblaster (WashU), and Sambamba (Baylor). These tools differ in their behavior at supplementary alignments, at “orphan” alignments where one of the two reads is unmapped, and based on whether they select the “best” read-pair in a set of duplicates (Picard & BamUtil), or the first read-pair (Samblaster). We agreed that it was acceptable for different centers to use different tools, so long as the same number of reads were marked duplicate and results were functionally equivalent.
+Summary: This processing step is a source of considerable variability among centers, with four different tools being used at the beginning of this exercise: Picard, bamUtil, Samblaster, and Sambamba. These tools differ in their behavior at supplementary alignments, at “orphan” alignments where one of the two reads is unmapped, and based on whether they select the “best” read-pair in a set of duplicates (Picard & BamUtil), or the first read-pair (Samblaster). We agreed that it was acceptable for different centers to use different tools, so long as the same number of reads were marked duplicate and results were functionally equivalent.
 
 Standard:
-* Match Picard’s current definition of duplicates for primary alignments where both reads of a pair align to the reference genome. Both Samblaster and BamUtil already attempt to match Picard for this class of alignments.
-* If a primary alignment is marked as duplicate, then all supplementary alignments for that same read should also be marked as duplicates. Both Picard and BamUtil have modified to exhibit this behavior.
+* Match Picard’s current definition of duplicates for primary alignments where both reads of a pair align to the reference genome. Both Samblaster and bamUtil already attempt to match Picard for this class of alignments.
+* If a primary alignment is marked as duplicate, then all supplementary alignments for that same read should also be marked as duplicates. Both Picard and bamUtil have modified to exhibit this behavior.  For Picard, you must use >= version 2.4.1 and run on a queryname sorted input file.  BamUtil must be version >=TODO
 * Orphans will be marked as duplicates if there’s another read with the same alignment (mated, or orphaned)
 * The unmapped mate of duplicate orphan reads is required to also be marked as a duplicate.
 * It is not a requirement for duplicate marking software to choose the best pair based on base quality sum, but results must be functionally equivalent.
 
 Notes:
-* The Broad has modified Picard MarkDuplicates to meet these specifications when run on a queryname sorted input file. This functionality was available beginning with version 2.4.1 of Picard.
-* WashU and Baylor have moved to using Picard MarkDuplicates >2.4.1 to meet this specification.
-* Michigan is modifying bamUtil to meet these specifications
 * We agreed that if a primary alignment is marked as duplicate, then all secondary alignments for that read should also be marked as duplicates. However, given that no secondary alignments will exist using our proposed alignment strategy, we decided that it should be optional for different groups to incorporate this behavior into their software.
 * There was a discussion about whether duplicate marking should be deterministic. We did not reach a decision on this.
 * We have discussed the preferred behavior for marking duplicates in datasets with multiple sequencing libraries and have decided that this is a minor concern given that very few samples should have multiple libraries. Currently MarkDuplicates supports multiple libraries with the caveat that the term “Library” isn’t exactly defined (consider a technical replicate that starts somewhere in the middle of the LC process, how early must it be to be called a different library?)
