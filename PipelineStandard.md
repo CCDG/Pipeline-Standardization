@@ -62,7 +62,7 @@ Standard:
     * Homo_sapiens_assembly38.known_indels.vcf.gz
 * The recalibration table may optionally be generated using only the autosomes (chr1-chr22)
 * Downsampling of the reads is allowed (but optional) to generate the recalibration table
-* per-base alignment qualities (BAQ) algorithm is optional as long as functional equivalence is met
+* per-base alignment qualities (BAQ) algorithm is optional
 
 Command line:
 For users of GATK, the following command line options should be utilized for the BaseRecalibrator tool:
