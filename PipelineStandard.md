@@ -165,7 +165,7 @@ Standard:
 * Do not retain the original base quality scores (OQ tag).
 
 Notes:
-*  it is recommended that users use samtools version >=1.3.1 to convert from bam/sam to cram (not picard). Users that would like to convert back from cram to bam (and want to avoid ending up with a working, but invalid bam) need to either convert to sam and then to bam (piping works) or compile samtools with HTSLib version >=1.3.2. To enable this you need to: configure the build of samtools with the parameter `--with-htslib=/path/to/htslib-1.3.2`.
+*  it is recommended that users use samtools version >=1.3.1 to convert from bam/sam to cram (The use of htsjdk/Picard/GATK for converting bam to cram is not currently condoned). Users that would like to convert back from cram to bam (and want to avoid ending up with an invalid bam) need to either convert to sam and then to bam (piping works) or compile samtools with HTSLib version >=1.3.2. To enable this you need to: configure the build of samtools with the parameter `--with-htslib=/path/to/htslib-1.3.2`.
 
 #Functional equivalence evaluation
 All pipelines used for this effort need to be validated as functionally equivalent.
