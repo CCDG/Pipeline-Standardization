@@ -152,10 +152,6 @@ Standard:
 * Do not retain the original base quality scores (OQ tag).
 
 Notes:
-* We have discussed the minimal set of tags to include. RG, MQ, MC and SA are all required. We will get MD and NM for free by using CRAM. OQ will be explicitly excluded, but all additional tags may be included by any group.
-* The use of htsjdk/picard for converting bam to cram is not currently condoned. We are working on making picard output equivalent to samtools, but are not there yet. Broad currently converts using samtools.
-* Should retention of original query names be mandatory, or optional? Query names will not be retained in current cSRA format.
-* dbGaP and cSRA currently accept CRAM files
 *  it is recommended that users use samtools version 1.3.1 to convert from bam/sam to Cram (not picard). Users that would like to convert back from cram to bam (and want to avoid ending up with a working, but invalid bam) need to either convert to sam and then to bam (piping works) or compile samtools with HTSLib version 1.3.2. To enable this you need to: configure the build of samtools with the parameter `--with-htslib=/path/to/htslib-1.3.2`.
 
 #Functional equivalence evaluation
