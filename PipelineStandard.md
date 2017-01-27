@@ -54,8 +54,6 @@ Standard:
 * Orphan alignments (where the mate paired read is unmapped) will be marked as duplicates if there’s another read with the same alignment (mated, or orphaned)
 * The unmapped mate of duplicate orphan reads is required to also be marked as a duplicate.
 * It is not a requirement for duplicate marking software to choose the best pair based on base quality sum, but results must be functionally equivalent.  In practice we have moved away from using Samblaster for this reason.
-
-Notes:
 * If a primary alignment is marked as duplicate, then all secondary alignments for that read should also be marked as duplicates. However, given that no secondary alignments will exist using our proposed alignment strategy, it is optional for software to implement.
 * There was a discussion about whether duplicate marking should be deterministic. We did not reach a decision on this.
 * We have discussed the preferred behavior for marking duplicates in datasets with multiple sequencing libraries and have decided that this is a minor concern given that very few samples should have multiple libraries. Currently MarkDuplicates supports multiple libraries with the caveat that the term “Library” isn’t exactly defined (consider a technical replicate that starts somewhere in the middle of the LC process, how early must it be to be called a different library?)
@@ -172,8 +170,6 @@ Standard:
 * Retain the minimal set of tags (RG, MQ, MC and SA).  NOTE: an additional tool may be needed to add the MQ and MC tags if none of the tools add these tags otherwise.  One option is to pipe the alignment through [samblaster](https://github.com/GregoryFaust/samblaster) with the options `-a --addMateTags` as it comes out of BWA
 * Groups can add custom tags as needed.
 * Do not retain the original base quality scores (OQ tag).
-
-Notes:
 *  it is recommended that users use samtools version >=1.3.1 to convert from bam/sam to cram (The use of htsjdk/Picard/GATK for converting bam to cram is not currently condoned). Users that would like to convert back from cram to bam (and want to avoid ending up with an invalid bam) need to either convert to sam and then to bam (piping works) or compile samtools with HTSLib version >=1.3.2. To enable this you need to: configure the build of samtools with the parameter `--with-htslib=/path/to/htslib-1.3.2`.
 
 #Functional equivalence evaluation
