@@ -28,7 +28,7 @@ Standard:
 * Version: We will use 0.7.15 (https://github.com/lh3/bwa/releases/tag/v0.7.15)
 * Standardized parameters:
     * Do not use `-M` since it causes split-read alignments to be marked as "secondary" rather than "supplementary" alignments, violating the BAM specification
-    * Use `-K 100000000` to achieve deterministic alignment results
+    * Use `-K 100000000` to achieve deterministic alignment results (Note: this is a hidden option)
     * Use `-Y` to force soft-clipping rather than default hard-clipping of supplementary alignments
     * Include a `.alt` file for consumption by BWA-MEM; do not perform post-processing of alternate alignments
 * Optional parameters (may be useful for convenience and not expected to alter results):
