@@ -38,7 +38,7 @@ Standard:
     * `-t` (threading)
     * `-R` (read group header line)
 * Post-alignment modification:
-    * In order to reduce false positive calls due to bacterial contamination randomly aligning to the human genome, the Broad Institute has started marking (setting 0x4 bit in the SAM flag) reads (and their mates) if the following conditions apply:
+    * In order to reduce false positive calls due to bacterial contamination randomly aligning to the human genome, reads and their mates may be marked by setting 0x4 bit in the SAM flag if the following conditions apply:
         1. The primary alignment has less than 32 aligned bases
         2. The primary alignment is (soft) clipped on both sides
     * This filtering is optional
