@@ -40,7 +40,7 @@ Standard:
 * Post-alignment modification:
     * In order to reduce false positive calls due to bacterial contamination randomly aligning to the human genome, reads and their mates may be marked by setting 0x4 bit in the SAM flag if the following conditions apply:
         1. The primary alignment has less than 32 aligned bases
-        2. The primary alignment is (soft) clipped on both sides
+        2. The primary alignment is soft clipped on both sides
     * This filtering is optional
     * The original mapping information will be encoded in a Previous Alignment (PA) tag on the marked reads using the same format as the SA tag in the BAM specification.
     * Modification of other flags after alignment will not be performed.
@@ -70,7 +70,7 @@ Standard:
     * Mills_and_1000G_gold_standard.indels.hg38.vcf.gz
     * Homo_sapiens_assembly38.known_indels.vcf.gz
 * The recalibration table may optionally be generated using only the autosomes (chr1-chr22)
-* Downsampling of the reads is allowed (but optional) to generate the recalibration table
+* Downsampling of the reads is optional
 * per-base alignment qualities (BAQ) algorithm is optional
 
 Command line:
