@@ -1,3 +1,5 @@
+This pipeline standard was developed to aid in coordination of the Centers for Common Disease Genomics project.  It was tested with HiSeq X data on pipeline implementations from five centers.
+
 * [Alignment pipeline standards](#alignment-pipeline-standards)
    1. [Reference genome version](#reference-genome-version)
    2. [Alignment](#alignment)
