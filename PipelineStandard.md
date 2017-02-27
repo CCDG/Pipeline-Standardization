@@ -86,6 +86,7 @@ For users of GATK, the following command line options should be utilized for the
 ```
 
 For users of GATK, the following command line options are optional for efficiency and can be utilized for the BaseRecalibrator tool:
+Note: we've tested .1 downsampling fractions.  Lower fractions should be tested for functional equivalence.
 ```
 --downsample_to_fraction .1 \
     -L chr1 \
@@ -113,7 +114,6 @@ For users of GATK, the following command line options are optional for efficienc
 ```
 
 For users of GATK, the following command line options are optional:
-* `--interval_padding 200`
 * `-rf BadCigar`
 * `--preserve_qscores_less_than 6`
 * `--disable_auto_index_creation_and_locking_when_reading_rods`
@@ -136,17 +136,16 @@ For users of GATK, the following command line options should be utilized for the
 -I ${input_bam} \
 -O ${output_bam_basename}.bam \
 -bqsr ${recalibration_report} \
--SQQ 10 -SQQ 20 -SQQ 30
+-SQQ 10 -SQQ 20 -SQQ 30 \
+--disable_indel_quals
 ```
 
 For users of GATK, the following command line options are optional:
 * `--globalQScorePrior -1.0`
 * `--preserve_qscores_less_than 6`
-* `--disable_indel_quals`
 * `--useOriginalQualities`
 * `-nct`
 * `-rf BadCigar`
-* `--emit_original_quals`
 * `--createOutputBamMD5`
 * `--addOutputSAMProgramRecord`
 
