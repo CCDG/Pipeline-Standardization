@@ -173,7 +173,7 @@ Standard:
 *  it is recommended that users use samtools version >=1.3.1 to convert from BAM/SAM to CRAM (The use of htsjdk/Picard/GATK for converting BAM to CRAM is not currently condoned). Users that would like to convert back from CRAM to BAM (and want to avoid ending up with an invalid BAM) need to either convert to SAM and then to BAM (piping works) or compile samtools with HTSLib version >=1.3.2. To enable this you need to: configure the build of samtools with the parameter `--with-htslib=/path/to/htslib-1.3.2`.
 
 #Functional equivalence evaluation
-All pipelines used for this effort need to be validated as functionally equivalent.
+All pipelines used for this effort need to be validated as functionally equivalent.  The validation methodology will be published alongside a test data set.
 
 #Pathway for updates to this standard
 Pipelines will need to be updated during the project, but this should be a tightly controlled process given the need to reprocess vast amounts of data each time substantial pipeline modifications occur.
