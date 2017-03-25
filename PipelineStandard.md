@@ -11,9 +11,9 @@ This pipeline standard was developed to aid in coordination of the Centers for C
 * [Functional equivalence evaluation](#functional-equivalence-evaluation)
 * [Pathway for updates to this standard](#pathway-for-updates-to-this-standard)
 
-#Alignment pipeline standards
+# Alignment pipeline standards
 
-##Reference genome version
+## Reference genome version
 Each center should use exactly the same reference genome.
 
 Standard:
@@ -22,7 +22,7 @@ Standard:
 * Includes the decoy sequences
 * Includes additional alternate versions of the HLA locus
 
-##Alignment
+## Alignment
 Each center should use exactly the same alignment strategy
 
 Standard:
@@ -47,7 +47,7 @@ Standard:
     * The original mapping information will be encoded in a Previous Alignment (PA) tag on the marked reads using the same format as the SA tag in the BAM specification.
     * Modification of other flags after alignment will not be performed.
 
-##Duplicate marking
+## Duplicate marking
 Different centers can use different tools, as long as the same number of reads are marked duplicate and results are functionally equivalent.  During the pipeline synchronization exercise we evaluated four tools: Picard MarkDuplicates, bamUtil, samblaster, and sambamba.  After the exercise, centers are using Picard and bamUtil.
 
 Standard:
@@ -60,10 +60,10 @@ Standard:
 * There was a discussion about whether duplicate marking should be deterministic. We did not reach a decision on this.
 * We have discussed the preferred behavior for marking duplicates in datasets with multiple sequencing libraries and have decided that this is a minor concern given that very few samples should have multiple libraries. Currently MarkDuplicates supports multiple libraries with the caveat that the term “Library” isn’t exactly defined (consider a technical replicate that starts somewhere in the middle of the LC process, how early must it be to be called a different library?)
 
-##Indel realignment
+## Indel realignment
 This computationally expensive data processing step is dispensable given the state of current indel detection algorithms and will not be performed.
 
-##Base quality score recalibration
+## Base quality score recalibration
 There was discussion about dropping BQSR given evidence that the impact on variant calling performance is minimal. However, given that this project will involve combined analysis of data from multiple centers and numerous sequencers, generated over multiple years, and that we cannot ensure the consistency of Illumina base-calling software over time, we decided that it is preferable to perform BQSR.  We evaluated two tools, GATK BaseRecalibrator (both GATK3 and GATK4) and bamUtil.
 
 Standard:
@@ -123,7 +123,7 @@ For users of GATK, the following command line options are optional:
 * `-nct`
 * `--useOriginalQualities`
 
-##Base quality score binning scheme
+## Base quality score binning scheme
 Additional base quality score compression is required to reduce file size.  It is possible to achieve this with minimal adverse impacts on variant calling.
 
 Standard:
@@ -151,7 +151,7 @@ For users of GATK, the following command line options are optional:
 * `--createOutputBamMD5`
 * `--addOutputSAMProgramRecord`
 
-##File format
+## File format
 Each center should use the same file format, while retaining flexibility to include additional information for specific centers or projects.
 
 Standard:
@@ -173,7 +173,7 @@ Standard:
 * Do not retain the original base quality scores (OQ tag).
 *  it is recommended that users use samtools version >=1.3.1 to convert from BAM/SAM to CRAM (The use of htsjdk/Picard/GATK for converting BAM to CRAM is not currently condoned). Users that would like to convert back from CRAM to BAM (and want to avoid ending up with an invalid BAM) need to either convert to SAM and then to BAM (piping works) or compile samtools with HTSLib version >=1.3.2. To enable this you need to: configure the build of samtools with the parameter `--with-htslib=/path/to/htslib-1.3.2`.
 
-#Functional equivalence evaluation
+# Functional equivalence evaluation
 All pipelines used for this effort need to be validated as functionally equivalent.  The validation methodology will be published alongside a test data set.
 
 #Pathway for updates to this standard
