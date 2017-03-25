@@ -176,7 +176,7 @@ Standard:
 # Functional equivalence evaluation
 All pipelines used for this effort need to be validated as functionally equivalent.  The validation methodology will be published alongside a test data set.
 
-#Pathway for updates to this standard
+# Pathway for updates to this standard
 Pipelines will need to be updated during the project, but this should be a tightly controlled process given the need to reprocess vast amounts of data each time substantial pipeline modifications occur.
 
 Draft plan:
